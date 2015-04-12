@@ -3,6 +3,7 @@ import json
 import urllib
 import facepy
 import logging
+import datetime
 import coloredlogs
 
 logger = logging.getLogger('photobooth')
@@ -29,9 +30,11 @@ print graph.get('me')
 # r = graph.post(path, source=open("test.jpg"))
 # print r
 
-# while True:
-#     IMG_NAME = "snap.png"
-#     raw_input("HIT ME")
-#     camera.capture(IMG_NAME)
-#     r = graph.post(path, source=open(IMG_NAME))
-#     print r
+def takePictureAndUploadIt():
+    img_name = "snap-%s.jpg" % datetime.datetime.now().isoformat()
+    camera.capture(img_name)
+    r = graph.post(path, source=open(img_name))
+
+while True:
+    if raw_input("\nTake picture? ['n' to bail] ") == "n": break
+    takePictureAndUploadIt()
