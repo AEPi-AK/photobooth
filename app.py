@@ -1,23 +1,37 @@
+import os
 import json
-from facepy import GraphAPI
-import picamera
+import urllib
+import facepy
+import logging
+import coloredlogs
+
+logger = logging.getLogger('photobooth')
+coloredlogs.install(level=logging.DEBUG)
+
+if os.uname()[4][:3] == 'arm':
+    logging.warning("ARM archiecture detected; setting up picamera...")
+    import picamera
+    camera = picamera.PiCamera()
+else:
+    logging.warning("Non-ARM archiecture detected; skipping picamera setup")
 
 with open('config.json') as config_file:
+    logging.info("Parsing config file..."),
     config = json.load(config_file)
-    album_id = config['album_id']
     page_id = config['page_id']
-    access_token = config['access_token']
+    access_token = config['extended_access_token']
 
-camera = picamera.PiCamera()
-graph = GraphAPI(access_token)
-# album = graph.get_object(album_id)
-# print album
+logging.info("Initializing Graph API client...")
+graph = facepy.GraphAPI(access_token)
 
-path = "%s/photos" % page_id
+print graph.get('me')
+# path = "%s/photos" % page_id
+# r = graph.post(path, source=open("test.jpg"))
+# print r
 
-while True:
-    IMG_NAME = "snap.png"
-    raw_input("HIT ME")
-    camera.capture(IMG_NAME)
-    r = graph.post(path, source=open(IMG_NAME))
-    print r
+# while True:
+#     IMG_NAME = "snap.png"
+#     raw_input("HIT ME")
+#     camera.capture(IMG_NAME)
+#     r = graph.post(path, source=open(IMG_NAME))
+#     print r
