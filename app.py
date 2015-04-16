@@ -26,7 +26,6 @@ logging.info("Initializing Graph API client...")
 graph = facepy.GraphAPI(access_token)
 
 path = "%s/photos" % page_id
-# r = graph.post(path, source=open("test.jpg"))
 
 def takePictureAndUploadIt():
     img_name = "snap-%s.jpg" % datetime.datetime.now().isoformat()
