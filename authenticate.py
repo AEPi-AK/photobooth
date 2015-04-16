@@ -13,7 +13,7 @@ url += urllib.urlencode({
     "response_type": "token",
     'client_id': config['app_id'],
     'redirect_uri': "https://www.facebook.com/connect/login_success.html",
-    "scope": ",".join(["publish_actions", "manage_pages"])
+    "scope": ",".join(["publish_stream", "publish_actions", "manage_pages", "publish_pages"])
 })
 
 print url
@@ -27,3 +27,11 @@ print url
 # https://www.facebook.com/connect/login_success.html#access_token=<token>&expires_in=5183427
 
 # Step 3: Paste the extended access token into config.json!
+
+
+# Step ???:
+
+
+# page_access_token = graph.get('me/accounts')['data'][0]['access_token']
+# graph = facepy.GraphAPI(page_access_token)
+# print page_access_token

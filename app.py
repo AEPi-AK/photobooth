@@ -20,15 +20,13 @@ with open('config.json') as config_file:
     logging.info("Parsing config file..."),
     config = json.load(config_file)
     page_id = config['page_id']
-    access_token = config['extended_access_token']
+    access_token = config['page_access_token']
 
 logging.info("Initializing Graph API client...")
 graph = facepy.GraphAPI(access_token)
 
-print graph.get('me')
 path = "%s/photos" % page_id
 # r = graph.post(path, source=open("test.jpg"))
-# print r
 
 def takePictureAndUploadIt():
     img_name = "snap-%s.jpg" % datetime.datetime.now().isoformat()
