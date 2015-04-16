@@ -26,7 +26,7 @@ logging.info("Initializing Graph API client...")
 graph = facepy.GraphAPI(access_token)
 
 print graph.get('me')
-# path = "%s/photos" % page_id
+path = "%s/photos" % page_id
 # r = graph.post(path, source=open("test.jpg"))
 # print r
 
